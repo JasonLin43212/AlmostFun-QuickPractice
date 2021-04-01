@@ -41,8 +41,8 @@
 
 .answer-response {
     display: block;
-    font-size: 1.2em;
     flex-basis: 100%;
+    font-size: 1.2em;
     margin: 1em;
     padding: 0;
     text-align: center;
