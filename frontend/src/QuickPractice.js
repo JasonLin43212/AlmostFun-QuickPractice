@@ -35,19 +35,35 @@ class QuickPractice extends Component {
                 };
             }
 
-            const currentQuestion = questions[questionNumber];
+            const currentQuestion = questions[questionNumber-1];
             const newQuestionState = bChoice === currentQuestion.bAnswer && cChoice === currentQuestion.cAnswer
-                ? CORRECT : INCORRECT;
+                ? (questionNumber === questions.length)
+                    ? FINISHED
+                    : CORRECT
+                : INCORRECT;
             return { questionState: newQuestionState };
         });
     }
 
+    resetQuestions = () => {
+        this.setState((state) => ({
+            questionState: UNANSWERED,
+            questionNumber: 1,
+            bChoice: null,
+            cChoice: null,
+        }))
+    }
     /**
      * Functions for rendering different parts of the widget
      */
     renderAnswerResponse = () => {
         const { questions, questionNumber, questionState } = this.state;
-        const currentQuestion = questions[questionNumber];
+        const currentQuestion = questions[questionNumber - 1];
+
+        const explanation = <>
+            Correct! Using Pythagorean's Theorem, we can check that {currentQuestion.a}^2
+            + {currentQuestion.bAnswer}^2 = {currentQuestion.cAnswer}^2
+        </>;
 
         switch (questionState) {
             case UNANSWERED:
@@ -56,9 +72,14 @@ class QuickPractice extends Component {
                 return <p className='answer-response'>Not quite 🙈 Try again!</p>;
             case CORRECT:
                 return <p className='answer-response'>
-                    Correct! Using Pythagorean's Theorem, we can check that {currentQuestion.a}^2
-                    + {currentQuestion.bAnswer}^2 = {currentQuestion.cAnswer}^2
-                </p>
+                    {explanation}
+                </p>;
+            case FINISHED:
+                return <p className='answer-response'>
+                    {explanation}
+                    <br/>
+                    Nice work! You completed all the questions! 👏🏿👏🏽👏🏻
+                </p>;
             default:
                 break;
         }
@@ -66,7 +87,7 @@ class QuickPractice extends Component {
 
     renderAnswerSelection = () => {
         const { bChoice, cChoice, questionState} = this.state;
-        const currentQuestion = this.state.questions[this.state.questionNumber];
+        const currentQuestion = this.state.questions[this.state.questionNumber - 1];
 
         return <>
             <span>What values of b and c will make it a valid right triangle?</span>
@@ -104,9 +125,15 @@ class QuickPractice extends Component {
 
                 <input
                     className='answer-button'
-                    onClick={this.checkAnswer}
+                    onClick={questionState === FINISHED ? this.resetQuestions : this.checkAnswer}
                     type='button'
-                    value={questionState === CORRECT ? 'Next Question' : 'Check'}
+                    value={
+                        questionState === CORRECT
+                            ? 'Next Question'
+                            : (questionState === FINISHED)
+                                ? 'Restart'
+                                :'Check'
+                    }
                 />
             </form>
         </>;
@@ -118,7 +145,7 @@ class QuickPractice extends Component {
             questionNumber,
             questionState,
         } = this.state;
-        const currentQuestion = questions[questionNumber];
+        const currentQuestion = questions[questionNumber - 1];
 
         return <div className='quick-practice'>
             <h1>Quick Practice {questionNumber}/{questions.length}</h1>
