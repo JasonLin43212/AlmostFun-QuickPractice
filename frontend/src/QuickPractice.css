@@ -1,3 +1,28 @@
 .quick-practice {
     background-color: #f1f2fa;
+    width: 40%;
+}
+
+.answer-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.answer-selection {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex-basis: 50%;
+}
+
+.answer-response {
+    display: block;
+    flex-basis: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.answer-button {
 }
