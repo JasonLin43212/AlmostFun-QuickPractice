@@ -46,16 +46,40 @@ class QuickPractice extends Component {
     }
 
     resetQuestions = () => {
-        this.setState((state) => ({
+        this.setState({
             questionState: UNANSWERED,
             questionNumber: 1,
             bChoice: null,
             cChoice: null,
-        }))
+        });
     }
     /**
      * Functions for rendering different parts of the widget
      */
+    renderTriangle = (sideA) => {
+        return <div className='triangle-image'>
+            <svg width="200" height="200">
+              <polygon
+                  points="30,30 30,140 170,140"
+                  style={{ fill: '#e75480', stroke: 'black', 'strokeWidth': 3}}
+              />
+              <polygon
+                  points="30,140 30,120 50,120 50,140"
+                  style={{ fill: '#e75480', stroke: 'black', 'strokeWidth': 3}}
+              />
+              <text fill="black" fontSize="20" fontFamily="Verdana" x="5" y="95">
+                  {sideA}
+              </text>
+              <text fill="black" fontSize="20" fontFamily="Verdana" x="90" y="165">
+                  b
+              </text>
+              <text fill="black" fontSize="20" fontFamily="Verdana" x="110" y="80">
+                  c
+              </text>
+            </svg>
+        </div>
+    }
+
     renderAnswerResponse = () => {
         const { questions, questionNumber, questionState } = this.state;
         const currentQuestion = questions[questionNumber - 1];
@@ -90,12 +114,12 @@ class QuickPractice extends Component {
         const currentQuestion = this.state.questions[this.state.questionNumber - 1];
 
         return <>
-            <span>What values of b and c will make it a valid right triangle?</span>
+            <p className='question'>What values of b and c will make it a valid right triangle?</p>
             <form className='answer-form'>
                 <div className='answer-selection'>
-                    <label>The value of b is:</label>
+                    <label className='answer-label'>The value of b is:</label>
                     { currentQuestion.bChoices.map((choice, k) => (
-                        <label key={k}>
+                        <label className='radio-label' key={k}>
                             <input
                                 checked={choice === bChoice}
                                 onChange={() => this.handleChoiceSelection(choice, "bChoice")}
@@ -107,9 +131,9 @@ class QuickPractice extends Component {
                     ))}
                 </div>
                 <div className='answer-selection'>
-                    <label>The value of c is:</label>
+                    <label className='answer-label'>The value of c is:</label>
                     { currentQuestion.cChoices.map((choice, k) => (
-                        <label key={k}>
+                        <label className='radio-label' key={k}>
                             <input
                                 checked={choice === cChoice}
                                 onChange={() => this.handleChoiceSelection(choice, "cChoice")}
@@ -129,10 +153,10 @@ class QuickPractice extends Component {
                     type='button'
                     value={
                         questionState === CORRECT
-                            ? 'Next Question'
+                            ? 'Next Question!'
                             : (questionState === FINISHED)
-                                ? 'Restart'
-                                :'Check'
+                                ? 'Restart!'
+                                :'Check!'
                     }
                 />
             </form>
@@ -140,18 +164,12 @@ class QuickPractice extends Component {
     }
 
     render() {
-        const {
-            questions,
-            questionNumber,
-            questionState,
-        } = this.state;
+        const { questions, questionNumber } = this.state;
         const currentQuestion = questions[questionNumber - 1];
 
         return <div className='quick-practice'>
-            <h1>Quick Practice {questionNumber}/{questions.length}</h1>
-
-            <p>One side is {currentQuestion.a}</p>
-
+            <h1 className='widget-title'>Quick Practice {questionNumber}/{questions.length}</h1>
+            {this.renderTriangle(currentQuestion.a)}
             {this.renderAnswerSelection()}
         </div>
     }

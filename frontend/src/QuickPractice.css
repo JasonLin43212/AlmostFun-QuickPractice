@@ -1,9 +1,28 @@
 .quick-practice {
     background-color: #f1f2fa;
     border-radius: 5%;
-    padding: 1em;
     margin-top: 5em;
+    padding: 1em 2em;
     width: 40%;
+}
+
+.widget-title {
+    color: #00bbff;
+    font-size: 2em;
+}
+
+.triangle-image {
+    display: flex;
+    justify-content: center;
+}
+
+/* Answer Choice CSS */
+.question {
+    font-size: 1.3em;
+}
+
+.answer-label, .radio-label {
+    font-size: 1.2em;
 }
 
 .answer-form {
@@ -14,18 +33,39 @@
 
 .answer-selection {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
     flex-basis: 50%;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-bottom: 0.5em;
 }
 
 .answer-response {
     display: block;
+    font-size: 1.2em;
     flex-basis: 100%;
-    margin: 0;
+    margin: 1em;
     padding: 0;
     text-align: center;
 }
 
 .answer-button {
+    background-color: white;
+    border: 3px solid #00bbff;
+    border-radius: 0.5em;
+    color: #00bbff;
+    font-size: 1.2em;
+    padding: 0.5em 1em;
+}
+
+.answer-button:hover {
+    background-color: #00bbff;
+    color: white;
+}
+
+.answer-button:focus {
+    outline: none;
+}
+
+.answer-button:active {
+    transform: scale(0.95);
 }
