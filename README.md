@@ -6,7 +6,7 @@ git clone https://github.com/JasonLin43212/AlmostFun-QuickPractice.git
 
 2.) Go into `/frontend` directory.
 ```
-cd frontend/
+cd AlmostFun-QuickPractice/frontend/
 ```
 
 3.) Install npm packages.
