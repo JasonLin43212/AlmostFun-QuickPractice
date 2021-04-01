@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Latex from 'react-latex';
 import './QuickPractice.css';
 
 const UNANSWERED = 0;
@@ -84,9 +85,14 @@ class QuickPractice extends Component {
         const { questions, questionNumber, questionState } = this.state;
         const currentQuestion = questions[questionNumber - 1];
 
+        const mathString = `$$
+        \\begin{align}
+        ${currentQuestion.a}^2 + ${currentQuestion.bAnswer}^2 = ${currentQuestion.cAnswer}^2
+        \\end{align}
+        $$`;
         const explanation = <>
-            Correct! Using Pythagorean's Theorem, we can check that {currentQuestion.a}^2
-            + {currentQuestion.bAnswer}^2 = {currentQuestion.cAnswer}^2
+            Correct! Using Pythagorean's Theorem, we can check that
+            <Latex displayMode={true}>{mathString}</Latex>
         </>;
 
         switch (questionState) {
