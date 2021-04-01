@@ -68,7 +68,7 @@ class QuickPractice extends Component {
                   points="30,140 30,120 50,120 50,140"
                   style={{ fill: '#e75480', stroke: 'black', 'strokeWidth': 3}}
               />
-              <text fill="black" fontSize="20" fontFamily="Verdana" x="5" y="95">
+              <text fill="black" fontSize="20" fontFamily="Verdana" x="0" y="95">
                   {sideA}
               </text>
               <text fill="black" fontSize="20" fontFamily="Verdana" x="90" y="165">
@@ -84,14 +84,16 @@ class QuickPractice extends Component {
     renderAnswerResponse = () => {
         const { questions, questionNumber, questionState } = this.state;
         const currentQuestion = questions[questionNumber - 1];
+        const [a, b, c] = [currentQuestion.a, currentQuestion.bAnswer, currentQuestion.cAnswer];
 
-        const mathString = `$$
-        \\begin{align}
-        ${currentQuestion.a}^2 + ${currentQuestion.bAnswer}^2 = ${currentQuestion.cAnswer}^2
-        \\end{align}
-        $$`;
+        const mathString = `
+        $$a^2 + b^2 = c^2$$
+        $$${a}^2 + ${b}^2 = ${c}^2$$
+        $$${a*a} + ${b*b} = ${c*c}$$
+        $$${a*a + b*b} = ${c*c}$$
+        `;
         const explanation = <>
-            Correct! Using Pythagorean's Theorem, we can check that
+            Correct! Using Pythagorean's Theorem, we can see that:
             <Latex displayMode={true}>{mathString}</Latex>
         </>;
 
@@ -120,7 +122,7 @@ class QuickPractice extends Component {
         const currentQuestion = this.state.questions[this.state.questionNumber - 1];
 
         return <>
-            <p className='question'>What values of b and c will make it a valid right triangle?</p>
+            <p className='question'>What values of b and c will create a valid right triangle?</p>
             <form className='answer-form'>
                 <div className='answer-selection'>
                     <label className='answer-label'>The value of b is:</label>
